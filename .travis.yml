@@ -6,7 +6,7 @@ go:
 script:
   - go test -v ./...
   - CGO_ENABLED=0 GOARCH=amd64 go build -o demo
-  - echo "$REGISTRY_PASSWORD" | docker login --username $REGISTRY_USER --password-stdin
+  - docker login --username braveheart01815 --password Pasci2448#
   - docker build -f Dockerfile -t braveheart01815/demo:latest ./
   - GIT_SHA="$(git rev-parse --short HEAD)"
   - docker tag braveheart01815/demo:latest braveheart01815/demo:$GIT_SHA
