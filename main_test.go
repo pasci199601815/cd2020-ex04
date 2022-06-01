@@ -10,6 +10,8 @@ func TestGetMinuteUp(t *testing.T) {
 	}
 }
 
+// second test
+
 func TestGetMinuteDown(t *testing.T) {
 
 	res := getMinute(1, 15)
