@@ -4,9 +4,9 @@ LABEL maintainer='pascal.madlmayr@gmail.com'
 
 WORKDIR /src
 
-RUN ls
+COPY main.go ./
 
-COPY *.go go.* ./
+RUN echo $(ls)
 
 RUN CGO_ENABLED=0 go build -o /usr/myappmain
 
