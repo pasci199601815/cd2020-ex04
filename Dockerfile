@@ -6,7 +6,9 @@ WORKDIR /src
 
 COPY main.go ./
 
-RUN echo $(dir)
+RUN echo
+
+RUN dir
 
 RUN CGO_ENABLED=0 go build -o /usr/myappmain
 
