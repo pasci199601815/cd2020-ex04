@@ -18,6 +18,7 @@ script:
   - CGO_ENABLED=0 GOARCH=amd64 go build -o demo
   - docker login --username braveheart01815 --password Pasci2448##
   - docker build -f Dockerfile -t braveheart01815/demo:latest ./
+  - ./trivy config C:\Users\pasca\Desktop\CICD_ex4_repo\cd2020-ex04
   - ./trivy image --exit-code 0 --severity CRITICAL --no-progress braveheart01815/demo:latest
   - ./trivy image --exit-code 0 --severity HIGH --no-progress braveheart01815/demo:latest
   - GIT_SHA="$(git rev-parse --short HEAD)"
