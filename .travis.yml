@@ -18,7 +18,8 @@ script:
   - CGO_ENABLED=0 GOARCH=amd64 go build -o demo
   - docker login --username braveheart01815 --password Pasci2448##
   - docker build -f Dockerfile -t braveheart01815/demo:latest ./
-  - trivy --exit-code 0 --severity CRITICAL --no-progress braveheart01815/demo:latest
+  - ./trivy image --exit-code 0 --severity CRITICAL --no-progress braveheart01815/demo:latest
+  - ./trivy image --exit-code 0 --severity HIGH --no-progress braveheart01815/demo:latest
   - GIT_SHA="$(git rev-parse --short HEAD)"
   - docker tag braveheart01815/demo:latest braveheart01815/demo:$GIT_SHA
   - docker push braveheart01815/demo:latest
