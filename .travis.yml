@@ -3,11 +3,22 @@ language: go
 go:
   - 1.14.x
 
+env:
+  global:
+    - COMMIT=${TRAVIS_COMMIT::8}
+
+before_install:
+  - docker build -t trivy-ci-test:${COMMIT} .
+  - export VERSION=$(curl --silent "https://api.github.com/repos/aquasecurity/trivy/releases/latest" | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/')
+  - wget https://github.com/aquasecurity/trivy/releases/download/v${VERSION}/trivy_${VERSION}_Linux-64bit.tar.gz
+  - tar zxvf trivy_${VERSION}_Linux-64bit.tar.gz
+
 script:
   - go test -v ./...
   - CGO_ENABLED=0 GOARCH=amd64 go build -o demo
   - docker login --username braveheart01815 --password Pasci2448##
   - docker build -f Dockerfile -t braveheart01815/demo:latest ./
+  - trivy --exit-code 0 --severity CRITICAL --no-progress braveheart01815/demo:latest
   - GIT_SHA="$(git rev-parse --short HEAD)"
   - docker tag braveheart01815/demo:latest braveheart01815/demo:$GIT_SHA
   - docker push braveheart01815/demo:latest
